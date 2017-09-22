@@ -20,9 +20,9 @@ public class CrupierServidor extends Thread{
 	private ServerSocket serverSocket;
 	private InetAddress hostAddress;
 	private Socket socket;
-	private List<Jugador> jugadores;
+	private List<PlayerCliente> jugadores;
 	private static final int SERVERGAME_PORT =  6000;
-	private static final int TIEMPO_ESPERA = 250;
+	private static final int TWAIT_SERVER = 250;
 	
 	/**
 	 * Inicializacion del servidor (Socket, Lista de Jugadores, Threads)
@@ -30,7 +30,7 @@ public class CrupierServidor extends Thread{
 	
 	public CrupierServidor(){
 		
-		jugadores =  new ArrayList<Jugador>();
+		jugadores =  new ArrayList<PlayerCliente>();
 		//Obtener direccion del servidor
 		try {
 			hostAddress = InetAddress.getLocalHost(); //Se obtiene la direccion local del servidor.
@@ -77,7 +77,7 @@ public class CrupierServidor extends Thread{
 				socket = serverSocket.accept();
 				System.out.println("El jugador "+socket+" se ha conectado.");
 				
-				jugadores.add(new Jugador(socket)); //Se añade a lista de jugadores del servidor.
+				jugadores.add(new PlayerJugador(socket)); //Se añade a lista de jugadores del servidor.
 				
 			} catch (IOException e) {
 				System.out.println("No se pudo obtener un jugado.");
@@ -86,7 +86,7 @@ public class CrupierServidor extends Thread{
 			
 			
 			try {
-				Thread.sleep(TIEMPO_ESPERA);
+				Thread.sleep(TWAIT_SERVER);
 			} catch (InterruptedException e) {
 				System.out.println("El servidor ha sido desconectado.");
 				e.printStackTrace();
@@ -97,6 +97,13 @@ public class CrupierServidor extends Thread{
 	}//Fin Thread Run()
 	
 }
+
+
+
+
+
+
+
 
 
 

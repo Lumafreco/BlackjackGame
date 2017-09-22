@@ -6,8 +6,9 @@ public class Jugador {
 
 	private String nickName;
 
-	public Jugador(Socket socket) {
+	public Jugador(String nickName) {
 		super();
+		this.nickName = nickName;
 		
 	}
 
