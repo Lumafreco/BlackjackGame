@@ -6,7 +6,7 @@ import Logica.Jugador;
 
 import java.io.*;
 
-public class DealerServidor {
+public class CrupierServidor {
 	
 	private List<Jugador> jugadores; 
 
