@@ -1,11 +1,19 @@
 package Presentacion;
 import java.net.*;
+import java.util.List;
+
+import Logica.Jugador;
+
 import java.io.*;
 
-public class Servidor {
+public class DealerServidor {
+	
+	private List<Jugador> jugadores; 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 		ServerSocket socket;
 		boolean finnal = false;
 		

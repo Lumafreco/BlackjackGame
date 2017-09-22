@@ -2,7 +2,7 @@ package Presentacion;
 import java.net.*;
 import java.io.*;
 
-public class Cliente {
+public class PlayerCliente {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
