@@ -1,12 +1,14 @@
 package Logica;
 
+import java.net.Socket;
+
 public class Jugador {
 
 	private String nickName;
 
-	public Jugador(String nickName) {
+	public Jugador(Socket socket) {
 		super();
-		this.nickName = nickName;
+		
 	}
 
 	public String getNickName() {
@@ -16,6 +18,13 @@ public class Jugador {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
+	public boolean estaConectdo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 	
 	
 	

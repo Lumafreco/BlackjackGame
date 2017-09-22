@@ -3,9 +3,13 @@ import java.net.*;
 import java.io.*;
 
 public class PlayerCliente {
+	
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		Socket socket;
