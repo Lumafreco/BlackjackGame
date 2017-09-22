@@ -56,6 +56,8 @@ public class CrupierServidor extends Thread{
 	
 	/**
 	 * Metodo por defecto para Thread
+	 * Logica del juego (Repartir cartas, verificar puntaje mas alto de jugador,
+	 * actualizar tabla de puntuacion, verificar jugadores conectados)
 	 */
 	
 	public void run(){
@@ -77,7 +79,7 @@ public class CrupierServidor extends Thread{
 				socket = serverSocket.accept();
 				System.out.println("El jugador "+socket+" se ha conectado.");
 				
-				jugadores.add(new PlayerJugador(socket)); //Se añade a lista de jugadores del servidor.
+				jugadores.add(new PlayerCliente(socket)); //Se añade a lista de jugadores del servidor.
 				
 			} catch (IOException e) {
 				System.out.println("No se pudo obtener un jugado.");

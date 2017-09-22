@@ -1,10 +1,15 @@
 package Presentacion;
 import java.net.*;
+import java.util.List;
 import java.io.*;
 
-public class PlayerCliente extends Thread{
+public class PlayerCliente{
 	
 	private Socket socket;
+	private boolean conected;
+	private static final int TWAIT_PLAYER = 250;
+	private List<ObjectInputStream> input;
+	private List<ObjectOutputStream> output;
 	
 	
 
