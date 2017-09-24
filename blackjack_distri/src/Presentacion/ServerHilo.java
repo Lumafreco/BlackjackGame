@@ -6,6 +6,7 @@ package Presentacion;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.Socket;
 
 import Logica.Juego;
@@ -14,7 +15,7 @@ import Logica.Juego;
  * @author Ricardo
  *
  */
-public class ServerHilo extends Thread{
+public class ServerHilo extends Thread implements Serializable{
 
 	private Socket socket;
 	private DataOutputStream doutput;
@@ -55,7 +56,6 @@ public class ServerHilo extends Thread{
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		desconectar();

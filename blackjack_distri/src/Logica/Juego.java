@@ -10,5 +10,7 @@ package Logica;
 public class Juego {
 
 	public static boolean juegoTerminado;
+	
+	
 
 }

@@ -5,11 +5,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class JugadorHilo extends Thread{
+public class JugadorHilo extends Thread implements Serializable{
 
 	private int idJugador;
 	private String nickName;
@@ -47,13 +48,18 @@ public class JugadorHilo extends Thread{
 		
 		String respuesta = "";
 		
-		while(respuesta == null){
+		while(true){
 			try {
 				output.writeUTF("hola");
 				respuesta = input.readUTF();
 				
 				
 				// TODO Llame funciones de Logica
+				
+				if(respuesta == null){
+					break;
+					
+				}
 				
 				
 				
