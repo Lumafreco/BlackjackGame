@@ -18,13 +18,13 @@ public class Mano {
 	}
 
 	
-	public void AniadirCarta(Carta carta){
+	public void AñadirCarta(Carta carta){
 		this.cartasMano.add(carta);
 		if("A".equalsIgnoreCase(carta.getRango())){
 			if(puntajeMano<=10){
 				puntajeMano += 11;
 			}else{
-				puntajeMano +=1;
+				puntajeMano +=1; 
 			}
 		}else{
 			puntajeMano += carta.getValor();
@@ -40,9 +40,7 @@ public class Mano {
 					
 				}
 			}
-		}
-			
-		
+		}		
 	}
 		
 	

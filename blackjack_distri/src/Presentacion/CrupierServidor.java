@@ -29,7 +29,7 @@ public class CrupierServidor extends Thread{
 	 */
 	
 	public CrupierServidor(){
-		
+			
 		jugadores =  new ArrayList<PlayerCliente>();
 		//Obtener direccion del servidor
 		try {
@@ -59,14 +59,47 @@ public class CrupierServidor extends Thread{
 	 * Logica del juego (Repartir cartas, verificar puntaje mas alto de jugador,
 	 * actualizar tabla de puntuacion, verificar jugadores conectados)
 	 */
-	
+	@Override
 	public void run(){
-		System.out.println("Servidor en ejeccucion.......");
+		
+		while(true){
+			
+		}//Fin While True
+		
+		
+	}//Fin Thread Run()
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * 		System.out.println("Servidor en ejeccucion.......");
 		
 		//Loop infinito hasta que el servidor se apague.
 		while(true){
 			
-			//Verificar que jugadores estan desconectados.
+			//Verificar que jugadores estan conectados.
 			for(int i=0;i<jugadores.size();i++){
 				if(!jugadores.get(i).estaConectdo()){
 					jugadores.remove(i);
@@ -78,8 +111,8 @@ public class CrupierServidor extends Thread{
 			try {
 				socket = serverSocket.accept();
 				System.out.println("El jugador "+socket+" se ha conectado.");
-				
 				jugadores.add(new PlayerCliente(socket)); //Se añade a lista de jugadores del servidor.
+				
 				
 			} catch (IOException e) {
 				System.out.println("No se pudo obtener un jugado.");
@@ -95,10 +128,7 @@ public class CrupierServidor extends Thread{
 			}
 
 		}//Fin While(true)
-		
-	}//Fin Thread Run()
-	
-}
+ */
 
 
 

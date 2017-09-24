@@ -1,26 +1,27 @@
 package Presentacion;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import Logica.Jugador;
+
 import java.io.*;
 
-public class PlayerCliente{
+public class PlayerCliente extends Thread{
+		
+	public static void main(String[] args) {
+		
+        List<Thread> clients = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            clients.add(new Jugador(i));
+        }
+        for (Thread thread : clients) {
+            thread.start();
+        }
+    }
 	
-	private Socket socket;
-	private boolean conected;
-	private static final int TWAIT_PLAYER = 250;
-	private List<ObjectInputStream> input;
-	private List<ObjectOutputStream> output;
 	
 	
-
-	public PlayerCliente(Socket socket) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public boolean estaConectdo() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
 
 
