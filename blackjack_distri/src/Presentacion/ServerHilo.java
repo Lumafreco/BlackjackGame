@@ -8,15 +8,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import Logica.Juego;
+
 /**
  * @author Ricardo
  *
  */
 public class ServerHilo extends Thread{
 
-	/**
-	 *	Se creara un hilo para jugador 
-	 */
 	private Socket socket;
 	private DataOutputStream doutput;
 	private DataInputStream dinput;
@@ -26,13 +25,10 @@ public class ServerHilo extends Thread{
 		super();
 		this.socket = socket;
 		this.idHilo = idHilo;
-		
 		try {
 			this.dinput = new DataInputStream(socket.getInputStream());
 			this.doutput = new DataOutputStream(socket.getOutputStream());
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -52,10 +48,12 @@ public class ServerHilo extends Thread{
 		String inMessage;
 		try {
 			inMessage = dinput.readUTF();
-			if(inMessage.equals("hola")){
-				System.out.println("El cliente dice "+this.idHilo+" saluda");
-				doutput.writeUTF("Adios.");
+			
+			while(Juego.juegoTerminado!=true){
+				
+				//TODO Logica del Crupier Servidor
 			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

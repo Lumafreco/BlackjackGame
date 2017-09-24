@@ -16,23 +16,24 @@ import java.io.*;
 
 public class CrupierServidor extends Thread{
 	
-	private ServerSocket serverSocket;
 	private InetAddress hostAddress;
-	private Socket socket;
 	private List<JugadorCliente> jugadores;
 	private static final int SERVERGAME_PORT =  6000;
 	private static final int TWAIT_SERVER = 250;
 	
-	/**
-	 * Inicializacion del servidor (Socket, Lista de Jugadores, Threads)
-	 */
+	
+	
+	
 	
 
 	public static void main (String args[]){
 		ServerSocket server_socket;
 		Socket socket;
-		System.out.println("Inicializando servidor...");
+		boolean listening = true;
 		int idServer = 0;
+		
+		
+		System.out.println("Inicializando servidor...");
 		try{
 			server_socket = new ServerSocket(SERVERGAME_PORT);
 			System.out.println("[OK]");
@@ -46,24 +47,7 @@ public class CrupierServidor extends Thread{
 			Logger.getLogger(CrupierServidor.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
-	}
-	
-	
-	/**
-	 * Metodo por defecto para Thread
-	 * Logica del juego (Repartir cartas, verificar puntaje mas alto de jugador,
-	 * actualizar tabla de puntuacion, verificar jugadores conectados)
-	 */
-	@Override
-	public void run(){
-		
-		while(true){
-			
-		}//Fin While True
-		
-		
-	}//Fin Thread Run()
-	
+	}	
 }
 
 

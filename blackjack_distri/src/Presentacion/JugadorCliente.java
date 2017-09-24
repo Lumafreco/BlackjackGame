@@ -10,7 +10,7 @@ public class JugadorCliente extends Thread{
 		
         List<Thread> clients = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            clients.add(new Jugador(i));
+            clients.add(new JugadorHilo(i));
         }
         for (Thread thread : clients) {
             thread.start();
