@@ -30,6 +30,7 @@ public class ServerHilo extends Thread{
 		try {
 			this.dinput = new DataInputStream(socket.getInputStream());
 			this.doutput = new DataOutputStream(socket.getOutputStream());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,7 +49,17 @@ public class ServerHilo extends Thread{
 	
 	@Override
 	public void run(){
-		
+		String inMessage;
+		try {
+			inMessage = dinput.readUTF();
+			if(inMessage.equals("hola")){
+				System.out.println("El cliente dice "+this.idHilo+" saluda");
+				doutput.writeUTF("Adios.");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		desconectar();
 	}
-
 }

@@ -1,10 +1,13 @@
-package Logica;
+package Presentacion;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Jugador extends Thread{
 
@@ -26,15 +29,16 @@ public class Jugador extends Thread{
 	
 	@Override
 	public void run(){
+		Scanner leer = new Scanner(System.in);
+		String respuesta = "";
 		try {
 			socket = new Socket("127.0.0.1", SERVER_MAIN);
 			input = new DataInputStream(socket.getInputStream());
 			output = new DataOutputStream(socket.getOutputStream());
-						
-			
 			// TODO Llame funciones de Logica
-						
-			
+			System.out.println(this.idJugador+ " envia un saludo");
+			output.writeUTF("hola");
+			respuesta = ((DataInput) output).readUTF();
 			input.close();
 			output.close();
 			socket.close();
@@ -46,11 +50,16 @@ public class Jugador extends Thread{
 			// TODO Auto-generated catch block
 			System.out.println("Argumentos invalidos.");
 			e.printStackTrace();
-		}finally{
-			
-			
 		}
+			
+	}
+	
+	public void pedirCarta(){
 		
+	}
+	
+	public void ceder(){
+			
 	}
 	
 	/**

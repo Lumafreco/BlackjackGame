@@ -2,12 +2,9 @@ package Presentacion;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import Logica.Jugador;
-
 import java.io.*;
 
-public class PlayerCliente extends Thread{
+public class JugadorCliente extends Thread{
 		
 	public static void main(String[] args) {
 		
@@ -19,13 +16,7 @@ public class PlayerCliente extends Thread{
             thread.start();
         }
     }
-	
-	
-	
 }
-
-
-
 
 
 

@@ -2,9 +2,8 @@ package Presentacion;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import Logica.Jugador;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.*;
 
 /**
@@ -20,7 +19,7 @@ public class CrupierServidor extends Thread{
 	private ServerSocket serverSocket;
 	private InetAddress hostAddress;
 	private Socket socket;
-	private List<PlayerCliente> jugadores;
+	private List<JugadorCliente> jugadores;
 	private static final int SERVERGAME_PORT =  6000;
 	private static final int TWAIT_SERVER = 250;
 	
@@ -28,30 +27,26 @@ public class CrupierServidor extends Thread{
 	 * Inicializacion del servidor (Socket, Lista de Jugadores, Threads)
 	 */
 	
-	public CrupierServidor(){
+
+	public static void main (String args[]){
+		ServerSocket server_socket;
+		Socket socket;
+		System.out.println("Inicializando servidor...");
+		int idServer = 0;
+		try{
+			server_socket = new ServerSocket(SERVERGAME_PORT);
+			System.out.println("[OK]");
+			socket = server_socket.accept();
+			System.out.println("Nueva conexion entrante" +socket);
+			((ServerHilo)new ServerHilo(socket,idServer)).start();
+			idServer++;
 			
-		jugadores =  new ArrayList<PlayerCliente>();
-		//Obtener direccion del servidor
-		try {
-			hostAddress = InetAddress.getLocalHost(); //Se obtiene la direccion local del servidor.
-			System.out.println("La direccion local del servidor es: "+hostAddress);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			System.out.println("ERROR: No se peude obtener la direccion host!");
-			return;
+		}catch(IOException ex){
+			ex.printStackTrace();
+			Logger.getLogger(CrupierServidor.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
-		//Creacion del socket
-		try {
-			serverSocket = new ServerSocket(SERVERGAME_PORT,0,hostAddress);
-			System.out.println("Socket "+serverSocket+" creado correctamente.");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("ERROR: Socket ocupado o inhabilitado.");
-		}
-	
-	}//Fin CrupierServidor()
+	}
 	
 	
 	/**
@@ -82,6 +77,48 @@ public class CrupierServidor extends Thread{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * 	public CrupierServidor(){
+			
+		jugadores =  new ArrayList<JugadorCliente>();
+		//Obtener direccion del servidor
+		try {
+			hostAddress = InetAddress.getLocalHost(); //Se obtiene la direccion local del servidor.
+			System.out.println("La direccion local del servidor es: "+hostAddress);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			System.out.println("ERROR: No se peude obtener la direccion host!");
+			return;
+		}
+		
+		//Creacion del socket
+		try {
+			serverSocket = new ServerSocket(SERVERGAME_PORT,0,hostAddress);
+			System.out.println("Socket "+serverSocket+" creado correctamente.");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERROR: Socket ocupado o inhabilitado.");
+		}
+	
+	}//Fin CrupierServidor()
+ */
 
 
 
