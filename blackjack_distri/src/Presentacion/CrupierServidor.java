@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Logica.Juego;
+
 import java.io.*;
 
 /**
@@ -21,32 +24,33 @@ public class CrupierServidor extends Thread{
 	private static final int SERVERGAME_PORT =  6000;
 	private static final int TWAIT_SERVER = 250;
 	
-	
-	
-	
-	
 
+	
 	public static void main (String args[]){
 		ServerSocket server_socket;
 		Socket socket;
 		boolean listening = true;
 		int idServer = 0;
-		
-		
-		System.out.println("Inicializando servidor...");
 		try{
+			System.out.println("Inicializando servidor...");
 			server_socket = new ServerSocket(SERVERGAME_PORT);
 			System.out.println("[OK]");
-			socket = server_socket.accept();
-			System.out.println("Nueva conexion entrante" +socket);
-			((ServerHilo)new ServerHilo(socket,idServer)).start();
-			idServer++;
+			
+			Juego tablero = new Juego();
+			
+			while(true){
+				socket = server_socket.accept();
+				System.out.println("Nueva conexion entrante" +socket);
+				new PlayerServerHilo(socket,idServer).start();
+				idServer++;
+			}
+			
 			
 		}catch(IOException ex){
+			System.err.println("No se puede escuchar por el puerto "+ SERVERGAME_PORT);
 			ex.printStackTrace();
 			Logger.getLogger(CrupierServidor.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
 	}	
 }
 
@@ -136,7 +140,7 @@ public class CrupierServidor extends Thread{
 				
 				
 			} catch (IOException e) {
-				System.out.println("No se pudo obtener un jugado.");
+				System.out.println("No se pudo obtener un jugador.");
 				e.printStackTrace();
 			}
 			
