@@ -2,22 +2,43 @@ package Presentacion;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.io.*;
 
 public class JugadorCliente{
 	private Socket socket;
 	private static String serverAddress;
 	private static int serverPort;
-	private BufferedReader input = null;
-	private PrintWriter output = null;
+	private DataInputStream input = null;
+	private DataOutputStream output = null;
 	
 	public JugadorCliente(String serverAddres, int serverPort ){
 		System.out.println("Estableciendo conexion. Espere por favor....");
 		try {
 			socket = new Socket(serverAddress,serverPort);
 			System.out.println("Conectado: "+socket);
-			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			output = new PrintWriter(socket.getOutputStream());
+			input = new DataInputStream(System.in);
+			output = new DataOutputStream(socket.getOutputStream());
+			
+			Scanner snc = new Scanner(System.in);
+			String fromServer, fromMe;
+			boolean bandera = true;
+			
+			while(bandera){
+				fromMe = snc.nextLine();
+				System.out.println("scanner: "+fromMe);
+				if(fromMe!=null){
+					output.writeUTF(fromMe);
+					output.flush();
+				}
+				//Aca se recibe la lista de informacion
+				if(input.readUTF()!=null){
+					fromServer = input.readUTF();
+					//Se hace la funcion mostrar tablero
+				}
+				
+			}
+			
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -32,7 +53,7 @@ public class JugadorCliente{
 			try{
 				System.out.println("Cliente: ");
 				line = input.readLine();
-				output.println(line);
+				output.writeUTF(line);
 				output.flush();
 			}catch(IOException ioe){
 				System.out.println("Error al enviar: "+ioe.getMessage());
@@ -40,6 +61,7 @@ public class JugadorCliente{
 		}
 		
 	}//Fin Constructor
+	
 	
 	public void stop(){
 		try {
@@ -61,8 +83,8 @@ public class JugadorCliente{
 	public static void main(String[] args) {
 		System.out.println("Ingrese direccion y el puerto por el cual esta escuchando el servidor.");
 		System.out.println("Ex. 127.0.0.1 6000"+"\n");
-		serverAddress = args[0];
-		serverPort = Integer.parseInt(args[1]);
+		serverAddress = "196.168.43.86";
+		serverPort = 6000;
 		JugadorCliente cliente = new JugadorCliente(serverAddress, serverPort);
 	}
 }

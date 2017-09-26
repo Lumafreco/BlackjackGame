@@ -22,8 +22,8 @@ import Logica.Juego;
 public class PlayerServerHilo extends Thread implements Serializable{
 
 	private Socket socket;
-	private PrintWriter output;
-	private BufferedReader input;
+	private DataOutputStream output;
+	private DataInputStream input;
 	private int idHilo;
 	
 	private Juego tableroJuego;
@@ -34,8 +34,8 @@ public class PlayerServerHilo extends Thread implements Serializable{
 		this.idHilo = idHilo;
 		
 		try {
-			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			output = new PrintWriter(socket.getOutputStream());
+			input = new DataInputStream(socket.getInputStream());
+			output = new DataOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,23 +44,40 @@ public class PlayerServerHilo extends Thread implements Serializable{
 		
 	@Override
 	public void run(){
-		
-		while(true){
+		String comando = "";
+		boolean bandera = true;
+		while(bandera){
 			try {
-				String comando =  input.readLine();
-				
-				if(comando.equalsIgnoreCase("PEDIR")){
-					output.println("Recibes un AS");
-				}else if(comando.equalsIgnoreCase("PASAR")){
-					output.println("Turno cedido");
-				}else if(comando.equalsIgnoreCase("QUIT")){
-					output.println("Adios jugador");
-					return;
+				comando =  input.readUTF();
+				System.out.println(comando);
+				if(comando.startsWith("PEDIR")){
+					System.out.println("entre al if de pedir");
+					
+					output.writeUTF("El jugador "+this.idHilo+" recibe un AS");
+					
+				}else if(comando.startsWith("PASAR")){
+					output.writeUTF("Turno cedido");
+				}else if(comando.startsWith("QUIT")){
+					output.writeUTF("Adios jugador");
+					bandera = false;
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
 	}
+	
+	public void desconectar(){
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
+
+
