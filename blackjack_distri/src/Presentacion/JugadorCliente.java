@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
-public class JugadorCliente extends Thread{
-	private static Socket socket;
+public class JugadorCliente{
+	private Socket socket;
 	private static String serverAddress;
 	private static int serverPort;
-	private static BufferedReader input;
-	private static PrintWriter output;
+	private BufferedReader input = null;
+	private PrintWriter output = null;
 	
 	public JugadorCliente(String serverAddres, int serverPort ){
-		
+		System.out.println("Estableciendo conexion. Espere por favor....");
 		try {
 			socket = new Socket(serverAddress,serverPort);
+			System.out.println("Conectado: "+socket);
+			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			output = new PrintWriter(socket.getOutputStream());
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -23,9 +26,37 @@ public class JugadorCliente extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		
+		String line = "";
+		while(!line.equalsIgnoreCase("SALIR")){
+			try{
+				System.out.println("Cliente: ");
+				line = input.readLine();
+				output.println(line);
+				output.flush();
+			}catch(IOException ioe){
+				System.out.println("Error al enviar: "+ioe.getMessage());
+			}
+		}
+		
+	}//Fin Constructor
 	
-
+	public void stop(){
+		try {
+			if (input != null) {
+				input.close();
+			}
+			if(output != null){
+				output.close();
+			}
+			if(socket != null){
+				socket.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Error cerrando.....");
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		System.out.println("Ingrese direccion y el puerto por el cual esta escuchando el servidor.");
@@ -33,33 +64,7 @@ public class JugadorCliente extends Thread{
 		serverAddress = args[0];
 		serverPort = Integer.parseInt(args[1]);
 		JugadorCliente cliente = new JugadorCliente(serverAddress, serverPort);
-		
-		try {
-			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			output = new PrintWriter(socket.getOutputStream());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		while(true){
-			try {
-				String fromUser,fromServer;
-				
-				fromServer = input.readLine();
-				System.out.println("Servidor: " +fromServer);
-				
-				fromUser = input.readLine(); //Lee lo que escriba el cliente en consola.
-				output.println(fromUser);//Lo manda
-				if(fromUser.equalsIgnoreCase("SALIR")){
-					break;
-				}
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-    }
+	}
 }
 
 
